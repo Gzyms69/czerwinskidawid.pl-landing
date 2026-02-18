@@ -39,7 +39,7 @@ interface Translations {
 const translations: Record<Language, Translations> = {
   pl: {
     roles: [
-      "Programista Solo",
+      "Junior Software Engineer",
       "Ekspert Wsparcia L2",
       "Inżynier Automatyzacji",
     ],
@@ -77,7 +77,7 @@ const translations: Record<Language, Translations> = {
     backToHome: "Powrót do strony głównej",
   },
   en: {
-    roles: ["Solo Developer", "Support L2 Expert", "Automation Engineer"],
+    roles: ["Junior Software Engineer", "Support L2 Expert", "Automation Engineer"],
     bio: "Bridging the gap between operational discipline and creative engineering. Based in Kraków.",
     portfolio: {
       title: "Portfolio",

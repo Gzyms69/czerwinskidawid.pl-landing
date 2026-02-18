@@ -43,7 +43,7 @@
 
 ### B. Typography
 - **Headings**: Bold, high tracking-tight.
-- **Roles/Code**: Monospace font for "Solo Developer" and Terminal-style content.
+- **Roles/Code**: Monospace font for "Junior Software Engineer" and Terminal-style content.
 - **Content**: Zinc-400 for readability against black background.
 
 ## 4. Technical Implementation Standards
