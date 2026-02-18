@@ -1,5 +1,11 @@
 import { BentoCard } from "./BentoCard";
 
+interface Action {
+  label: string;
+  onClick?: () => void;
+  href?: string;
+}
+
 interface ProjectCardProps {
   title: string;
   description: string;
@@ -8,7 +14,7 @@ interface ProjectCardProps {
     name: string;
     description: string;
   }>;
-  actionLabel: string;
+  actions: Action[];
   glowColor?: "green" | "blue";
 }
 
@@ -17,7 +23,7 @@ export function ProjectCard({
   description,
   command,
   items,
-  actionLabel,
+  actions,
   glowColor = "green",
 }: ProjectCardProps) {
   const terminalColorClass =
@@ -42,7 +48,11 @@ export function ProjectCard({
           </div>
         </div>
       }
-      action={{ label: actionLabel }}
+      // Pass only the first action to BentoCard for primary display, 
+      // but we will render all actions manually if needed or update BentoCard.
+      // Let's update BentoCard to handle multiple actions for better flexibility.
+      action={actions[0]} 
+      additionalActions={actions.slice(1)}
     />
   );
 }

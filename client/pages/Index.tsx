@@ -131,27 +131,36 @@ export default function Index() {
                   { name: "Developer Portfolio Website", description: t.portfolio.items.portfolioSite },
                   { name: "Katalog & LeadFinder", description: t.portfolio.items.automationSuite },
                 ]}
-                actionLabel={t.portfolio.action}
+                actions={[{ label: t.portfolio.action }]}
               />
             </a>
           </motion.div>
 
           {/* Card B: Katalog */}
           <motion.div variants={itemVariants}>
-            <Link to="/katalog" className="block h-full">
+            <div className="h-full">
               <ProjectCard
                 title={t.katalog.title}
                 description={t.katalog.description}
                 glowColor="blue"
                 command="$ solutions --list"
                 items={[
-                  { name: "LeadFinder", description: t.katalog.items.leadFinder },
-                  { name: "Business Automation", description: t.katalog.items.businessAutomation },
                   { name: "Web Templates", description: t.katalog.items.webTemplates },
+                  { name: "Business Automation", description: t.katalog.items.businessAutomation },
+                  { name: "LeadFinder", description: t.katalog.items.leadFinder },
                 ]}
-                actionLabel={t.katalog.action}
+                actions={[
+                  { 
+                    label: t.katalog.action,
+                    onClick: () => window.location.href = "/katalog"
+                  },
+                  { 
+                    label: t.katalog.checkLeadFinder,
+                    href: "https://github.com/Gzyms69/LeadFinder"
+                  }
+                ]}
               />
-            </Link>
+            </div>
           </motion.div>
         </motion.section>
 

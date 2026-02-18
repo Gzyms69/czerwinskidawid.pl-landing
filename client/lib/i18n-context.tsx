@@ -20,6 +20,7 @@ interface Translations {
     title: string;
     description: string;
     action: string;
+    checkLeadFinder: string;
     items: {
       leadFinder: string;
       businessAutomation: string;
@@ -56,13 +57,14 @@ const translations: Record<Language, Translations> = {
         "Ta strona pojawi się wkrótce! Twoje Portfolio z projektami WikiGraph, Katalog i LeadFinder zostanie tu zaprezentowane.",
     },
     katalog: {
-      title: "Katalog",
-      description: "Odkryj automatyzację biznesową i rozwiązania webowe",
+      title: "Katalog & LeadFinder",
+      description: "Odkryj automatyzację biznesową i nowoczesny marketplace szablonów.",
       action: "> Przeglądaj Katalog",
+      checkLeadFinder: "> Sprawdź LeadFinder",
       items: {
-        leadFinder: "System generowania leadów",
-        businessAutomation: "Optymalizacja przepływu pracy",
-        webTemplates: "Gotowe komponenty",
+        webTemplates: "Gotowe komponenty i wzory stron",
+        businessAutomation: "Pełna automatyzacja marketingu",
+        leadFinder: "Generowanie magicznych URL i szukanie klientów",
       },
       comingSoon:
         "Ta strona pojawi się wkrótce! Katalog z LeadFinder, Automatyzacją Biznesową i Szablonami Webowymi będzie dostępny tutaj.",
@@ -90,13 +92,14 @@ const translations: Record<Language, Translations> = {
         "This page is coming soon! Your Developer Portfolio Website with WikiGraph, Katalog & LeadFinder projects will be showcased here.",
     },
     katalog: {
-      title: "Katalog",
-      description: "Discover business automation and web solutions",
+      title: "Katalog & LeadFinder",
+      description: "Discover business automation and modern template marketplace.",
       action: "> Explore Catalog",
+      checkLeadFinder: "> Check LeadFinder",
       items: {
-        leadFinder: "Lead generation system",
-        businessAutomation: "Workflow optimization",
-        webTemplates: "Ready-to-use components",
+        webTemplates: "Ready-to-use components and templates",
+        businessAutomation: "Full marketing automation",
+        leadFinder: "Magic URL generation and prospecting",
       },
       comingSoon:
         "This page is coming soon! The Katalog with LeadFinder, Business Automation, and Web Templates will be available here.",
