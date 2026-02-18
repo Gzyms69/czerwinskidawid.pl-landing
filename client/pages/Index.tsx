@@ -127,9 +127,9 @@ export default function Index() {
                 glowColor="green"
                 command="$ projects --list"
                 items={[
-                  { name: "WikiGraph", description: t.portfolio.items.wikiGraph },
-                  { name: "Developer Portfolio Website", description: t.portfolio.items.portfolioSite },
-                  { name: "Katalog & LeadFinder", description: t.portfolio.items.automationSuite },
+                  { name: "WikiGraph Lab", description: t.portfolio.items.wikiGraphLab },
+                  { name: "LeadFinder & Katalog Ecosystem", description: t.portfolio.items.leadFinderEcosystem },
+                  { name: "ROMHub", description: t.portfolio.items.romHub },
                 ]}
                 actions={[{ label: t.portfolio.action }]}
               />

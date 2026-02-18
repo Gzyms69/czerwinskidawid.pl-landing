@@ -10,9 +10,9 @@ interface Translations {
     description: string;
     action: string;
     items: {
-      wikiGraph: string;
-      portfolioSite: string;
-      automationSuite: string;
+      wikiGraphLab: string;
+      leadFinderEcosystem: string;
+      romHub: string;
     };
     comingSoon: string;
   };
@@ -49,9 +49,9 @@ const translations: Record<Language, Translations> = {
       description: "Poznaj moje projekty techniczne i inżynierskie.",
       action: "> Uruchom Portfolio",
       items: {
-        wikiGraph: "Baza grafowa",
-        portfolioSite: "Strona portfolio",
-        automationSuite: "Pakiet automatyzacji",
+        wikiGraphLab: "Silnik grafu wiedzy. Hybrydowa struktura Neo4j + SQLite.",
+        leadFinderEcosystem: "Kompletny pipeline automatyzacji sprzedaży (Scraping + Next.js).",
+        romHub: "Emulator N64 w przeglądarce działający po stronie klienta (WASM).",
       },
       comingSoon:
         "Ta strona pojawi się wkrótce! Twoje Portfolio z projektami WikiGraph, Katalog i LeadFinder zostanie tu zaprezentowane.",
@@ -84,9 +84,9 @@ const translations: Record<Language, Translations> = {
       description: "Explore my technical projects and engineering work.",
       action: "> Launch Portfolio",
       items: {
-        wikiGraph: "Graph database",
-        portfolioSite: "Portfolio site",
-        automationSuite: "Automation suite",
+        wikiGraphLab: "Knowledge Graph engine. Hybrid Neo4j + SQLite structure.",
+        leadFinderEcosystem: "End-to-end sales automation pipeline (Scraping + Next.js).",
+        romHub: "Browser-based N64 emulator running on the client side (WASM).",
       },
       comingSoon:
         "This page is coming soon! Your Developer Portfolio Website with WikiGraph, Katalog & LeadFinder projects will be showcased here.",
