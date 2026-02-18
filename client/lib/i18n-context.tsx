@@ -45,7 +45,7 @@ const translations: Record<Language, Translations> = {
     bio: "Łączę dyscyplinę operacyjną z kreatywną inżynierią. Mieszkam w Krakowie.",
     portfolio: {
       title: "Portfolio",
-      description: "Poznaj moje projekty techniczne i prace inżynierskie",
+      description: "Poznaj moje projekty techniczne i inżynierskie.",
       action: "> Uruchom Portfolio",
       items: {
         wikiGraph: "Baza grafowa",
@@ -79,7 +79,7 @@ const translations: Record<Language, Translations> = {
     bio: "Bridging the gap between operational discipline and creative engineering. Based in Kraków.",
     portfolio: {
       title: "Portfolio",
-      description: "Explore my technical projects and engineering work",
+      description: "Explore my technical projects and engineering work.",
       action: "> Launch Portfolio",
       items: {
         wikiGraph: "Graph database",

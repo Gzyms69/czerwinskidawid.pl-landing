@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { AvatarWithStatus } from "@/components/AvatarWithStatus";
 import { TypewriterEffect } from "@/components/TypewriterEffect";
-import { BentoCard } from "@/components/BentoCard";
+import { ProjectCard } from "@/components/ProjectCard";
 import { TechStackMarquee } from "@/components/TechStackMarquee";
 import { Github, Linkedin, Copy, Check } from "lucide-react";
 import { useLanguage } from "@/lib/i18n-context";
@@ -121,39 +121,17 @@ export default function Index() {
           {/* Card A: Portfolio */}
           <motion.div variants={itemVariants}>
             <Link to="/portfolio" className="block h-full">
-              <BentoCard
+              <ProjectCard
                 title={t.portfolio.title}
                 description={t.portfolio.description}
-                isTerminal
                 glowColor="green"
-                content={
-                  <div className="space-y-4">
-                    <div className="text-sm text-zinc-400 font-mono space-y-2">
-                      <div className="text-emerald-500">
-                        $ projects --list
-                      </div>
-                      <div className="text-zinc-300">
-                        • WikiGraph
-                        <span className="text-zinc-500"> - {t.portfolio.items.wikiGraph}</span>
-                      </div>
-                      <div className="text-zinc-300">
-                        • Developer Portfolio Website
-                        <span className="text-zinc-500">
-                          {" "}
-                          - {t.portfolio.items.portfolioSite}
-                        </span>
-                      </div>
-                      <div className="text-zinc-300">
-                        • Katalog & LeadFinder
-                        <span className="text-zinc-500">
-                          {" "}
-                          - {t.portfolio.items.automationSuite}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                }
-                action={{ label: t.portfolio.action }}
+                command="$ projects --list"
+                items={[
+                  { name: "WikiGraph", description: t.portfolio.items.wikiGraph },
+                  { name: "Developer Portfolio Website", description: t.portfolio.items.portfolioSite },
+                  { name: "Katalog & LeadFinder", description: t.portfolio.items.automationSuite },
+                ]}
+                actionLabel={t.portfolio.action}
               />
             </Link>
           </motion.div>
@@ -161,38 +139,17 @@ export default function Index() {
           {/* Card B: Katalog */}
           <motion.div variants={itemVariants}>
             <Link to="/katalog" className="block h-full">
-              <BentoCard
+              <ProjectCard
                 title={t.katalog.title}
                 description={t.katalog.description}
                 glowColor="blue"
-                content={
-                  <div className="space-y-4">
-                    <div className="text-sm text-zinc-400 space-y-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-400" />
-                        <span>LeadFinder</span>
-                        <span className="text-zinc-600">
-                          {t.katalog.items.leadFinder}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-400" />
-                        <span>Business Automation</span>
-                        <span className="text-zinc-600">
-                          {t.katalog.items.businessAutomation}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-400" />
-                        <span>Web Templates</span>
-                        <span className="text-zinc-600">
-                          {t.katalog.items.webTemplates}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                }
-                action={{ label: t.katalog.action }}
+                command="$ solutions --list"
+                items={[
+                  { name: "LeadFinder", description: t.katalog.items.leadFinder },
+                  { name: "Business Automation", description: t.katalog.items.businessAutomation },
+                  { name: "Web Templates", description: t.katalog.items.webTemplates },
+                ]}
+                actionLabel={t.katalog.action}
               />
             </Link>
           </motion.div>
