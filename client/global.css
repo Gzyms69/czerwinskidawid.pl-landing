@@ -1,0 +1,309 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Cyberpunk Professional Theme - Deep matte black with green/blue accents
+   * tailwind.config.ts expects HSL values format
+  */
+  :root {
+    /* Background and text */
+    --background: 0 0% 6.27%; /* #0a0a0a */
+    --foreground: 0 0% 100%;
+
+    /* Card styling */
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+
+    /* Popover styling */
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Primary - Cyberpunk green */
+    --primary: 120 100% 35%; /* Bright green */
+    --primary-foreground: 0 0% 6.27%;
+
+    /* Secondary - Zinc */
+    --secondary: 240 5% 25%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted - Zinc tones */
+    --muted: 240 5% 20%;
+    --muted-foreground: 240 3% 60%;
+
+    /* Accent - Deep blue */
+    --accent: 220 100% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border and input - Subtle zinc */
+    --border: 240 5% 15%;
+    --input: 240 5% 12%;
+    --ring: 120 100% 35%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar colors */
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 120 100% 35%;
+    --sidebar-primary-foreground: 0 0% 6.27%;
+    --sidebar-accent: 240 5% 25%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 5% 15%;
+    --sidebar-ring: 120 100% 35%;
+  }
+
+  .dark {
+    /* Already in dark theme by default */
+    --background: 0 0% 6.27%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 120 100% 35%;
+    --primary-foreground: 0 0% 6.27%;
+    --secondary: 240 5% 25%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 5% 20%;
+    --muted-foreground: 240 3% 60%;
+    --accent: 220 100% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 5% 15%;
+    --input: 240 5% 12%;
+    --ring: 120 100% 35%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 120 100% 35%;
+    --sidebar-primary-foreground: 0 0% 6.27%;
+    --sidebar-accent: 240 5% 25%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 240 5% 15%;
+    --sidebar-ring: 120 100% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Animations */
+@layer utilities {
+  @keyframes breathe {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes glow-green {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(34, 197, 94, 0.3), inset 0 0 10px rgba(34, 197, 94, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.5), inset 0 0 20px rgba(34, 197, 94, 0.2);
+    }
+  }
+
+  @keyframes glow-blue {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(59, 130, 246, 0.3), inset 0 0 10px rgba(59, 130, 246, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), inset 0 0 20px rgba(59, 130, 246, 0.2);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+  }
+
+  .animate-breathe {
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+  }
+
+  .animate-glow-green {
+    animation: glow-green 2s ease-in-out infinite;
+  }
+
+  .animate-glow-blue {
+    animation: glow-blue 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2s infinite;
+  }
+}
+
+/* Utility classes for cyberpunk theme */
+@layer components {
+  .text-mono {
+    @apply font-mono tracking-tight;
+  }
+
+  .text-tech-heading {
+    @apply text-white font-bold tracking-tighter;
+  }
+
+  .card-border {
+    @apply border border-zinc-800 bg-black/40;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/5 border border-zinc-800;
+  }
+
+  .glass-button {
+    @apply backdrop-blur-md bg-white/10 border border-zinc-700 hover:bg-white/20 transition-colors;
+  }
+
+  .neon-text-green {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .neon-text-blue {
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .spotlight {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .vignette {
+    position: relative;
+  }
+
+  .vignette::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.8) 100%);
+    pointer-events: none;
+  }
+}
+
+/* Grid background pattern */
+.grid-background {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floating dots animation */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-40px) translateX(0px);
+  }
+  75% {
+    transform: translateY(-20px) translateX(-10px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 20s ease-in-out infinite;
+}
