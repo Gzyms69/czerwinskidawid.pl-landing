@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { AvatarWithStatus } from "@/components/AvatarWithStatus";
@@ -9,6 +9,7 @@ import { Github, Linkedin, Copy, Check } from "lucide-react";
 import { useLanguage } from "@/lib/i18n-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Variants } from "framer-motion";
+import GlobalSpotlight from "@/components/GlobalSpotlight";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -38,6 +39,7 @@ export default function Index() {
   const [copied, setCopied] = useState(false);
   const { t } = useLanguage();
   const email = "dawidczerwinskipl@gmail.com";
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const handleCopyEmail = async () => {
     try {
@@ -51,6 +53,8 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
+      <GlobalSpotlight containerRef={gridRef} spotlightRadius={500} glowColor="16, 185, 129" />
+
       {/* Language Switcher */}
       <LanguageSwitcher />
 
@@ -116,7 +120,8 @@ export default function Index() {
 
         {/* Bento Grid - Main Cards */}
         <motion.section
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-20 sm:mb-32"
+          ref={gridRef}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-20 sm:mb-32 relative"
           variants={containerVariants}
         >
           {/* Card A: Portfolio */}

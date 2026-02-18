@@ -69,3 +69,7 @@ To achieve a perfectly fluid, infinite loop without sub-pixel "jumping":
 - **Reference Errors**: Always verify imports when refactoring components from raw HTML to React Router components. A missing `Link` import will crash the entire render tree (Black Screen).
 - **Vite Security**: Vite blocks access to files outside the specified root. When moving files or changing the entry point, update `server.fs.allow` accordingly.
 - **No Hacks Policy**: Professional infinite animations require duplicated DOM nodes and percentage shifts. Proportional shifts (like -33% for 3 sets) or "Twin Loops" (-100% for 2 sets) are the only stable solutions.
+- **Environment Sanitation**: If code changes are not visible on localhost, perform a full environment audit. Kill zombie processes on port 8080 (`fuser -k 8080/tcp`) and clear the Vite cache (`rm -rf node_modules/.vite`).
+- **ESM Path Aliasing**: In Node.js ESM environments (`type: module`), global variables like `__dirname` are unavailable. Use `fileURLToPath(import.meta.url)` in `vite.config.ts` to maintain robust path aliasing (@).
+- **Global Event Proxies**: For interactive background effects (Spotlights, Trails), use global `window` event listeners instead of component-bound `onPointerMove`. This ensures interaction consistency even when UI elements (cards, buttons) occupy higher z-index layers.
+- **GSAP Stability**: When integrating GSAP with React 18, always use `gsap.context()` for scoped animations and guaranteed cleanup during unmounting to prevent memory leaks and "Black Screen" runtime crashes.

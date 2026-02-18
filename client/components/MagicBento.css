@@ -1,0 +1,96 @@
+:root {
+  --border-color: rgba(255, 255, 255, 0.1);
+  --background-dark: #000000;
+}
+
+.magic-bento-card {
+  position: relative;
+  /* Override default flex behavior if needed by parent layout */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  
+  /* Glassmorphism Base */
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem; /* rounded-2xl matches Tailwind */
+  overflow: hidden;
+  
+  /* Animation props */
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  /* Glow Defaults */
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 400px;
+  --glow-rgb: 34, 197, 94; /* Default Emerald */
+}
+
+/* Border glow effect using mask composite */
+.magic-bento-card--border-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px; /* Thinner border for cleaner look */
+  
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-rgb), calc(var(--glow-intensity) * 1)) 0%,
+    rgba(var(--glow-rgb), calc(var(--glow-intensity) * 0.4)) 40%,
+    transparent 80%
+  );
+  
+  border-radius: inherit;
+  
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  
+  pointer-events: none;
+  opacity: 1;
+  z-index: 20; /* Above background, below content */
+  transition: opacity 0.2s ease;
+}
+
+/* Particles container */
+.particle-container {
+  position: absolute !important;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Global spotlight styles */
+.global-spotlight {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 5; /* Below UI content but above base backgrounds */
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  transform: translate(-50%, -50%);
+}
+
+/* Ensure content stays above effects */
+.bento-content-layer {
+  position: relative;
+  z-index: 30;
+  height: 100%;
+}
