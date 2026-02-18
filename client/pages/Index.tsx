@@ -8,9 +8,9 @@ import { TechStackMarquee } from "@/components/TechStackMarquee";
 import { Github, Linkedin, Copy, Check } from "lucide-react";
 import { useLanguage } from "@/lib/i18n-context";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import PixelTrail from "@/components/PixelTrail";
+import { Variants } from "framer-motion";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -21,7 +21,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -30,7 +30,7 @@ const itemVariants = {
       type: "spring",
       stiffness: 100,
       damping: 12,
-    },
+    } as any,
   },
 };
 
@@ -51,19 +51,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
-      {/* Background Animation */}
-      <div className="fixed inset-0 z-0 opacity-40 pointer-events-none">
-        <PixelTrail
-          gridSize={100}
-          trailSize={0.1}
-          maxAge={450}
-          interpolate={2.7}
-          color="#29ff7b"
-          gooeyEnabled
-          gooStrength={5}
-        />
-      </div>
-
       {/* Language Switcher */}
       <LanguageSwitcher />
 
