@@ -79,7 +79,7 @@ export default function Index() {
             <AvatarWithStatus
               size="lg"
               status="online"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Dawid&glasses=round_blue&hair=long_blonde&facial=goatee"
+              src="/dawid.jpg"
             />
           </motion.div>
 
