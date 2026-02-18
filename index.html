@@ -23,10 +23,56 @@
     <meta property="twitter:image" content="/dawid.jpg" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      body { background-color: #000000; margin: 0; padding: 0; }
+      #initial-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 80px 20px;
+        box-sizing: border-box;
+      }
+      .skeleton {
+        background: #18181b; /* zinc-900 */
+        border-radius: 1rem;
+        animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      @keyframes skeleton-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }
+      .sk-avatar { width: 128px; height: 128px; border-radius: 50%; margin-bottom: 32px; }
+      .sk-name { width: 300px; height: 48px; margin-bottom: 16px; border-radius: 0.5rem; }
+      .sk-title { width: 200px; height: 24px; margin-bottom: 64px; border-radius: 0.5rem; }
+      .sk-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+        width: 100%;
+      }
+      .sk-card { height: 400px; }
+      @media (max-width: 640px) {
+        .sk-name { width: 200px; }
+        .sk-card { height: 300px; }
+      }
+    </style>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="initial-loader">
+        <div class="skeleton sk-avatar"></div>
+        <div class="skeleton sk-name"></div>
+        <div class="skeleton sk-title"></div>
+        <div class="sk-grid">
+          <div class="skeleton sk-card"></div>
+          <div class="skeleton sk-card"></div>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="/client/App.tsx"></script>
   </body>
