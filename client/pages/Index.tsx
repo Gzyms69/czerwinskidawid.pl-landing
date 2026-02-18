@@ -120,7 +120,7 @@ export default function Index() {
         >
           {/* Card A: Portfolio */}
           <motion.div variants={itemVariants}>
-            <Link to="/portfolio" className="block h-full">
+            <a href="/portfolio" className="block h-full">
               <ProjectCard
                 title={t.portfolio.title}
                 description={t.portfolio.description}
@@ -133,7 +133,7 @@ export default function Index() {
                 ]}
                 actionLabel={t.portfolio.action}
               />
-            </Link>
+            </a>
           </motion.div>
 
           {/* Card B: Katalog */}

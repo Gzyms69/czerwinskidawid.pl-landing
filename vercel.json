@@ -1,5 +1,16 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/portfolio",
+      "destination": "https://portfolio-five-ebon-25.vercel.app/index.html"
+    },
+    {
+      "source": "/portfolio/:path*",
+      "destination": "https://portfolio-five-ebon-25.vercel.app/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
