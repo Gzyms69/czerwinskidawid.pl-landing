@@ -52,15 +52,15 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
       {/* Background Animation */}
-      <div className="fixed inset-0 z-0 opacity-30 pointer-events-none">
+      <div className="fixed inset-0 z-0 opacity-40 pointer-events-none">
         <PixelTrail
           gridSize={100}
           trailSize={0.1}
           maxAge={450}
           interpolate={2.7}
           color="#29ff7b"
-          gooeyFilter={{ id: "custom-goo-filter", strength: 2 }}
-          className="pointer-events-auto"
+          gooeyEnabled
+          gooStrength={5}
         />
       </div>
 
