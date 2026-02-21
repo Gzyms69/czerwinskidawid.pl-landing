@@ -14,8 +14,39 @@ const TechStackMarquee = lazy(() => import("@/components/TechStackMarquee").then
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Helper component for deferred loading based on viewport
+function DeferredComponent({ children, fallback, minHeight = "400px" }: { children: React.ReactNode, fallback: React.ReactNode, minHeight?: string }) {
+  const [shouldRender, setShouldRender] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldRender(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" } // Load early before it actually hits the screen
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} style={{ minHeight: shouldRender ? "auto" : minHeight }}>
+      {shouldRender ? <Suspense fallback={fallback}>{children}</Suspense> : fallback}
+    </div>
+  );
+}
+
 export default function Index() {
   const [copied, setCopied] = useState(false);
+  const [loadDecorative, setLoadDecorative] = useState(false);
   const { t } = useLanguage();
   const email = "dawidczerwinskipl@gmail.com";
   const gridRef = useRef<HTMLDivElement>(null);
@@ -32,8 +63,16 @@ export default function Index() {
   };
 
   useEffect(() => {
+    // Delay decorative effects (Spotlight) until main thread is idle
+    const timer = setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => setLoadDecorative(true));
+      } else {
+        setLoadDecorative(true);
+      }
+    }, 2000);
+
     const ctx = gsap.context(() => {
-      // Fade in sections on scroll
       const sections = gsap.utils.toArray(".fade-in-section");
       sections.forEach((section: any) => {
         gsap.fromTo(
@@ -52,27 +91,21 @@ export default function Index() {
           }
         );
       });
-      
-      // Stagger Bento Cards
-      // We need to wait for cards to be mounted, but since they are lazy loaded, 
-      // the initial GSAP run might miss them.
-      // However, Suspense boundaries will handle the mounting. 
-      // We can use a small delay or check for existence, or rely on ScrollTrigger's refresh()
-      
-      // For now, let's keep the stagger logic, but it might need to run after lazy load.
-      // A better approach with lazy loading is to let the component animate itself in,
-      // or use a wrapper that is present in the DOM.
-      
     }, mainRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
     <div ref={mainRef} className="min-h-screen bg-black text-white overflow-hidden relative">
-      <Suspense fallback={null}>
-        <GlobalSpotlight containerRef={gridRef} spotlightRadius={500} glowColor="16, 185, 129" />
-      </Suspense>
+      {loadDecorative && (
+        <Suspense fallback={null}>
+          <GlobalSpotlight containerRef={gridRef} spotlightRadius={500} glowColor="16, 185, 129" />
+        </Suspense>
+      )}
 
       {/* Language Switcher */}
       <LanguageSwitcher />
@@ -86,25 +119,22 @@ export default function Index() {
       {/* Main content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
         
-        {/* Hero Section - CSS Animated (Immediate Paint) */}
+        {/* Hero Section */}
         <section className="text-center space-y-6 sm:space-y-8 mb-20 sm:mb-32">
-          {/* Avatar */}
           <div className="flex justify-center animate-in-fade delay-0">
             <AvatarWithStatus
               size="lg"
               status="online"
-              src="/dawid.webp"
+              src="/dawid.avif"
             />
           </div>
 
-          {/* Name with shimmer effect */}
           <div className="animate-in-fade delay-100">
             <h1 className="text-5xl sm:text-7xl font-bold tracking-tight">
               <span className="neon-text-green">Dawid Czerwiński</span>
             </h1>
           </div>
 
-          {/* Typewriter Effect */}
           <div className="text-xl sm:text-2xl font-mono text-zinc-300 h-10 animate-in-fade delay-200">
             <TypewriterEffect
               words={t.roles}
@@ -115,21 +145,22 @@ export default function Index() {
             />
           </div>
 
-          {/* Bio */}
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed animate-in-fade delay-300">
             {t.bio}
           </p>
         </section>
 
-        {/* Bento Grid - Main Cards */}
+        {/* Bento Grid - Deferred Loading */}
         <section
           ref={gridRef}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-20 sm:mb-32 relative"
         >
-          {/* Card A: Portfolio */}
           <div className="bento-card-item h-full">
             <a href="/portfolio" className="block h-full">
-              <Suspense fallback={<div className="h-[400px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}>
+              <DeferredComponent 
+                minHeight="400px" 
+                fallback={<div className="h-[400px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
+              >
                 <ProjectCard
                   title={t.portfolio.title}
                   description={t.portfolio.description}
@@ -142,14 +173,16 @@ export default function Index() {
                   ]}
                   actions={[{ label: t.portfolio.action }]}
                 />
-              </Suspense>
+              </DeferredComponent>
             </a>
           </div>
 
-          {/* Card B: Katalog */}
           <div className="bento-card-item h-full">
             <div className="h-full">
-              <Suspense fallback={<div className="h-[400px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}>
+              <DeferredComponent 
+                minHeight="400px" 
+                fallback={<div className="h-[400px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
+              >
                 <ProjectCard
                   title={t.katalog.title}
                   description={t.katalog.description}
@@ -171,25 +204,27 @@ export default function Index() {
                     }
                   ]}
                 />
-              </Suspense>
+              </DeferredComponent>
             </div>
           </div>
         </section>
 
-        {/* Tech Stack Marquee */}
+        {/* Tech Stack Marquee - Deferred Loading */}
         <section className="fade-in-section mb-20 sm:mb-32">
           <p className="text-center text-zinc-500 text-sm mb-6 font-mono">
             {t.techStack}
           </p>
-          <Suspense fallback={<div className="h-32 w-full bg-zinc-900/20 animate-pulse border-y border-zinc-800" />}>
+          <DeferredComponent 
+            minHeight="128px" 
+            fallback={<div className="h-32 w-full bg-zinc-900/20 animate-pulse border-y border-zinc-800" />}
+          >
             <TechStackMarquee />
-          </Suspense>
+          </DeferredComponent>
         </section>
 
         {/* Footer */}
         <footer className="fade-in-section border-t border-zinc-800 pt-8 sm:pt-12">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-            {/* Social Links */}
             <div className="flex gap-4">
               <a
                 href="https://github.com/gzyms69"
@@ -211,7 +246,6 @@ export default function Index() {
               </a>
             </div>
 
-            {/* Copy Email Button */}
             <button
               onClick={handleCopyEmail}
               className="px-4 py-2 sm:px-6 sm:py-3 rounded-lg bg-zinc-900/50 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors flex items-center gap-2 font-mono text-sm transform hover:scale-105 active:scale-95"
@@ -229,7 +263,6 @@ export default function Index() {
               )}
             </button>
 
-            {/* Copyright */}
             <p className="text-zinc-600 text-sm text-center sm:text-right">
               © {new Date().getFullYear()} {t.footer.copyright}
             </p>

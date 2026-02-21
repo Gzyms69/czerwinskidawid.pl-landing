@@ -19,8 +19,10 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "dist",
-    // Reverting manual chunks to fix HMR/Runtime errors. 
-    // Vite's default splitting is sufficient for now.
+    modulePreload: {
+      polyfill: false, // Don't inject polyfills
+      resolveDependencies: () => [] // Disable automatic dependency preloading
+    },
   },
   plugins: [react()],
   resolve: {
