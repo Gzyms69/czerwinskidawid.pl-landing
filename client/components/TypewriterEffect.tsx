@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
 interface TypewriterEffectProps {
   words: string[];
@@ -55,12 +54,10 @@ export function TypewriterEffect({
   }, [displayedText, isDeleting, currentWordIndex, words, typingSpeed, deletingSpeed, delayBetweenWords]);
 
   return (
-    <div className={`inline-block ${className}`}>
+    <div className={`inline-flex items-center ${className}`}>
       <span>{displayedText}</span>
-      <motion.span
-        className={`inline-block w-1 h-8 ml-1 bg-emerald-500 ${cursorClassName}`}
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity }}
+      <span
+        className={`inline-block w-1 h-[1.2em] ml-1 bg-emerald-500 animate-blink ${cursorClassName}`}
       />
     </div>
   );

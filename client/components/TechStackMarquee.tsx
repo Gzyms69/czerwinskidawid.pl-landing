@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
 import {
   Code2,
   Database,
@@ -28,8 +29,26 @@ const techItems: TechItem[] = [
 ];
 
 export function TechStackMarquee() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(".marquee-group", {
+        x: "-100%",
+        duration: 40,
+        ease: "none",
+        repeat: -1,
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="w-full overflow-hidden bg-black/50 backdrop-blur-sm border-t border-b border-zinc-800 py-12 relative">
+    <div 
+      ref={containerRef}
+      className="w-full overflow-hidden bg-black/50 backdrop-blur-sm border-t border-b border-zinc-800 py-12 relative"
+    >
       {/* Edge fading mask */}
       <div 
         className="absolute inset-0 z-10 pointer-events-none"
@@ -49,15 +68,8 @@ export function TechStackMarquee() {
 
 function MarqueeGroup() {
   return (
-    <motion.div
-      className="flex items-center gap-16 pr-16 shrink-0 min-w-full justify-around"
-      initial={{ x: 0 }}
-      animate={{ x: "-100%" }}
-      transition={{
-        duration: 40,
-        repeat: Infinity,
-        ease: "linear",
-      }}
+    <div
+      className="marquee-group flex items-center gap-16 pr-16 shrink-0 min-w-full justify-around"
     >
       {techItems.map((tech, index) => (
         <div
@@ -74,6 +86,6 @@ function MarqueeGroup() {
           </span>
         </div>
       ))}
-    </motion.div>
+    </div>
   );
 }

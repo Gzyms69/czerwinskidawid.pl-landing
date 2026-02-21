@@ -19,6 +19,14 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "dist",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-gsap': ['gsap'],
+          'vendor-react': ['react', 'react-dom'],
+        },
+      },
+    },
   },
   plugins: [react()],
   resolve: {

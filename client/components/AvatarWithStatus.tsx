@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 interface AvatarWithStatusProps {
   src?: string;
   alt?: string;
@@ -26,42 +24,36 @@ export function AvatarWithStatus({
   status = "online",
 }: AvatarWithStatusProps) {
   return (
-    <motion.div
-      className="relative inline-block"
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    <div
+      className="relative inline-block animate-in-fade"
     >
       {/* Main avatar circle */}
       <div className={`${sizeClasses[size]} relative`}>
-        <motion.div
-          className="absolute inset-0 rounded-full border-2 border-zinc-700"
-          animate={status === "online" ? { opacity: [0.5, 1, 0.5] } : {}}
-          transition={{ duration: 2, repeat: Infinity }}
+        <div
+          className="absolute inset-0 rounded-full border-2 border-zinc-700 animate-pulse"
         >
           <img
             src={src}
             alt={alt}
+            width={size === "sm" ? 48 : size === "md" ? 80 : 128}
+            height={size === "sm" ? 48 : size === "md" ? 80 : 128}
+            loading="eager"
             className="w-full h-full rounded-full object-cover"
           />
-        </motion.div>
+        </div>
 
         {/* Status ring */}
-        <motion.div
+        <div
           className={`absolute -bottom-1 -right-1 w-5 h-5 ${statusColors[status]} rounded-full border-2 border-black`}
-          animate={status === "online" ? { scale: [1, 1.2, 1] } : {}}
-          transition={{ duration: 2, repeat: Infinity }}
         />
 
         {/* Pulse ring effect for online status */}
         {status === "online" && (
-          <motion.div
-            className="absolute inset-0 rounded-full border border-emerald-500"
-            animate={{ scale: [1, 1.3, 1], opacity: [1, 0, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+          <div
+            className="absolute inset-0 rounded-full border border-emerald-500 animate-pulse-ring"
           />
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
