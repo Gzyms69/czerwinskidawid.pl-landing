@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Index from "./pages/Index";
 
 import { LanguageProvider } from "./lib/i18n-context";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +20,8 @@ const App = () => (
         <Toaster />
         <Sonner />
         <Index />
+        <Analytics />
+        <SpeedInsights />
       </TooltipProvider>
     </LanguageProvider>
   </QueryClientProvider>
