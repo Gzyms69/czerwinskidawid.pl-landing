@@ -60,7 +60,7 @@ const translations: Record<Language, Translations> = {
     katalog: {
       title: "Katalog & LeadFinder",
       description: "Odkryj automatyzację biznesową i nowoczesny marketplace szablonów.",
-      action: "> Przeglądaj Katalog (Wkrótce)",
+      action: "> Przeglądaj Katalog",
       checkLeadFinder: "> Sprawdź LeadFinder",
       items: {
         webTemplates: "Gotowe komponenty i wzory stron",
