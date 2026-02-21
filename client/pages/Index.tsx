@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, lazy, Suspense } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { toast } from "sonner";
 import { AvatarWithStatus } from "@/components/AvatarWithStatus";
 import { TypewriterEffect } from "@/components/TypewriterEffect";
 import { Github, Linkedin, Copy, Check } from "lucide-react";
@@ -197,7 +198,7 @@ export default function Index() {
                   actions={[
                     { 
                       label: t.katalog.action,
-                      onClick: () => window.location.href = "/katalog"
+                      onClick: () => toast.info(t.katalog.toast)
                     },
                     { 
                       label: t.katalog.checkLeadFinder,

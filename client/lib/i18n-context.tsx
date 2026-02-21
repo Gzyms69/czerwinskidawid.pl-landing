@@ -27,6 +27,7 @@ interface Translations {
       webTemplates: string;
     };
     comingSoon: string;
+    toast: string;
   };
   techStack: string;
   footer: {
@@ -68,6 +69,7 @@ const translations: Record<Language, Translations> = {
       },
       comingSoon:
         "Ta strona pojawi się wkrótce! Katalog z LeadFinder, Automatyzacją Biznesową i Szablonami Webowymi będzie dostępny tutaj.",
+      toast: "Jeszcze w budowie. Zapraszam wkrótce!",
     },
     techStack: "Technologie",
     footer: {
@@ -103,6 +105,7 @@ const translations: Record<Language, Translations> = {
       },
       comingSoon:
         "This page is coming soon! The Katalog with LeadFinder, Business Automation, and Web Templates will be available here.",
+      toast: "Work in progress. Coming soon!",
     },
     techStack: "Tech Stack",
     footer: {
