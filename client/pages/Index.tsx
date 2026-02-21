@@ -27,7 +27,8 @@ function DeferredComponent({ children, fallback, minHeight = "400px" }: { childr
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" } // Load early before it actually hits the screen
+      // STRICTER LOADING: Trigger only when almost visible
+      { rootMargin: "0px 0px 100px 0px" } 
     );
 
     if (containerRef.current) {
@@ -70,7 +71,7 @@ export default function Index() {
       } else {
         setLoadDecorative(true);
       }
-    }, 2000);
+    }, 2500); // Increased delay slightly to be safe
 
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray(".fade-in-section");
@@ -100,7 +101,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div ref={mainRef} className="min-h-screen bg-black text-white overflow-hidden relative">
+    <div className="min-h-screen bg-black text-white overflow-hidden relative">
       {loadDecorative && (
         <Suspense fallback={null}>
           <GlobalSpotlight containerRef={gridRef} spotlightRadius={500} glowColor="16, 185, 129" />
@@ -116,8 +117,8 @@ export default function Index() {
       {/* Vignette overlay */}
       <div className="fixed inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50 pointer-events-none z-20" />
 
-      {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+      {/* Main content - Changed to <main> for A11y */}
+      <main ref={mainRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
         
         {/* Hero Section */}
         <section className="text-center space-y-6 sm:space-y-8 mb-20 sm:mb-32">
@@ -158,8 +159,8 @@ export default function Index() {
           <div className="bento-card-item h-full">
             <a href="/portfolio" className="block h-full">
               <DeferredComponent 
-                minHeight="400px" 
-                fallback={<div className="h-[400px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
+                minHeight="500px" // Increased height to ensure off-screen
+                fallback={<div className="h-[500px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
               >
                 <ProjectCard
                   title={t.portfolio.title}
@@ -180,8 +181,8 @@ export default function Index() {
           <div className="bento-card-item h-full">
             <div className="h-full">
               <DeferredComponent 
-                minHeight="400px" 
-                fallback={<div className="h-[400px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
+                minHeight="500px" // Increased height
+                fallback={<div className="h-[500px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
               >
                 <ProjectCard
                   title={t.katalog.title}
@@ -268,7 +269,7 @@ export default function Index() {
             </p>
           </div>
         </footer>
-      </div>
+      </main>
     </div>
   );
 }

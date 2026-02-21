@@ -23,6 +23,7 @@ interface BentoCardProps {
   enableMagnetism?: boolean;
   enableParticles?: boolean;
   particleCount?: number;
+  HeadingTag?: "h2" | "h3" | "h4";
 }
 
 const DEFAULT_PARTICLE_COUNT = 12;
@@ -55,6 +56,7 @@ export function BentoCard({
   enableMagnetism = true,
   enableParticles = true,
   particleCount = DEFAULT_PARTICLE_COUNT,
+  HeadingTag = "h2",
 }: BentoCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement[]>([]);
@@ -263,9 +265,9 @@ export function BentoCard({
         )}
 
         <div className="space-y-4 flex-grow">
-          <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
             {title}
-          </h3>
+          </HeadingTag>
 
           {description && (
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
