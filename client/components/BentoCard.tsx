@@ -293,8 +293,15 @@ export function BentoCard({
               const content = (
                 <button
                   key={idx}
+                  type="button"
                   className={btnClass}
-                  onClick={act.onClick}
+                  onClick={(e) => {
+                    if (act.onClick) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      act.onClick();
+                    }
+                  }}
                 >
                   {act.label}
                 </button>
