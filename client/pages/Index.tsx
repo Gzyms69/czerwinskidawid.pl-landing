@@ -39,6 +39,17 @@ function DeferredComponent({ children, fallback, minHeight = "400px" }: { childr
     return () => observer.disconnect();
   }, []);
 
+  // CRITICAL: Refresh ScrollTrigger when content hydrates
+  useEffect(() => {
+    if (shouldRender) {
+      // Small delay to ensure DOM is updated and layout is stable
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [shouldRender]);
+
   return (
     <div ref={containerRef} style={{ minHeight: shouldRender ? "auto" : minHeight }}>
       {shouldRender ? <Suspense fallback={fallback}>{children}</Suspense> : fallback}
@@ -68,11 +79,15 @@ export default function Index() {
     // Delay decorative effects (Spotlight) until main thread is idle
     const timer = setTimeout(() => {
       if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(() => setLoadDecorative(true));
+        (window as any).requestIdleCallback(() => {
+          setLoadDecorative(true);
+          ScrollTrigger.refresh();
+        });
       } else {
         setLoadDecorative(true);
+        ScrollTrigger.refresh();
       }
-    }, 2500); // Increased delay slightly to be safe
+    }, 2500);
 
     const ctx = gsap.context(() => {
       const sections = gsap.utils.toArray(".fade-in-section");
@@ -87,7 +102,7 @@ export default function Index() {
             ease: "power2.out",
             scrollTrigger: {
               trigger: section,
-              start: "top 85%",
+              start: "top 90%", // Trigger slightly later for stability
               toggleActions: "play none none reverse",
             },
           }
@@ -160,7 +175,7 @@ export default function Index() {
           <div className="bento-card-item h-full">
             <a href="/portfolio" className="block h-full">
               <DeferredComponent 
-                minHeight="500px" // Increased height to ensure off-screen
+                minHeight="500px" 
                 fallback={<div className="h-[500px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
               >
                 <ProjectCard
@@ -182,7 +197,7 @@ export default function Index() {
           <div className="bento-card-item h-full">
             <div className="h-full">
               <DeferredComponent 
-                minHeight="500px" // Increased height
+                minHeight="500px" 
                 fallback={<div className="h-[500px] w-full bg-zinc-900/50 rounded-2xl animate-pulse" />}
               >
                 <ProjectCard
@@ -224,7 +239,7 @@ export default function Index() {
           </DeferredComponent>
         </section>
 
-        {/* Footer */}
+        {/* Footer - Keep class but ensure trigger is refreshed */}
         <footer className="fade-in-section border-t border-zinc-800 pt-8 sm:pt-12">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex gap-4">
