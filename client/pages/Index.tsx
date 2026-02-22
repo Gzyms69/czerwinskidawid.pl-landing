@@ -198,7 +198,7 @@ export default function Index() {
                   actions={[
                     { 
                       label: t.katalog.action,
-                      onClick: () => toast.info(t.katalog.toast)
+                      href: "https://katalog.czerwinskidawid.pl/"
                     },
                     { 
                       label: t.katalog.checkLeadFinder,
